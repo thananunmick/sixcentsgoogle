@@ -68,6 +68,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_web_plugins",
+      "rootUri": "file:///C:/Users/acer/Documents/flutter/packages/flutter_web_plugins",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "js",
+      "rootUri": "file:///C:/Users/acer/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "lints",
       "rootUri": "file:///C:/Users/acer/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/lints-1.0.1",
       "packageUri": "lib/",
@@ -152,13 +164,25 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "vibration",
+      "rootUri": "file:///C:/Users/acer/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/vibration-1.7.4-nullsafety.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "vibration_web",
+      "rootUri": "file:///C:/Users/acer/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/vibration_web-1.6.3-nullsafety.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sixcents",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-03-17T07:33:48.496342Z",
+  "generated": "2022-03-21T22:16:07.826358Z",
   "generator": "pub",
   "generatorVersion": "2.16.1"
 }
