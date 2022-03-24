@@ -14,20 +14,34 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.green,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: BootupPage()
+    );
+  }
+}
+
+Future<void> waittohome(int dur, BuildContext ctxt) async {
+  await Future.delayed(Duration(milliseconds: dur));
+  Navigator.pushReplacement(
+    ctxt,
+    MaterialPageRoute(builder: (context) => const MyHomePage(title: "HOME_PAGE")),
+  );
+}
+
+class BootupPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext ctxt) {
+    Vibration.vibrate(pattern: [0, 1000, 200, 1000, 200, 1000, 200, 1000]);
+    waittohome(5000, ctxt);
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child:
+            Image.asset(
+           'images/SixCents_logo.png',
+           scale: 1.5
+           ),
+        ),
     );
   }
 }
@@ -147,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onDoubleTap: () {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => Braille()));
+                        MaterialPageRoute(builder: (context) => Braille(text: "",)));
                     },
                   )
                 ),

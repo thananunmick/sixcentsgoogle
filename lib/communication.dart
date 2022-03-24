@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:vibration/vibration.dart';
+import 'package:perfect_volume_control/perfect_volume_control.dart';
+import 'textbox.dart';
 
 class Keys {
  static final GlobalKey key1 = GlobalKey();
@@ -9,11 +12,11 @@ class Keys {
  static final GlobalKey key4 = GlobalKey();
  static final GlobalKey key5 = GlobalKey();
  static final GlobalKey key6 = GlobalKey();
-
 }
 
 class Braille extends StatefulWidget {
-  const Braille({Key? key}) : super(key: key);
+  final String text;
+  const Braille({Key? key, required this.text}) : super(key: key);
 
   @override
   State<Braille> createState() => _BrailleState();
@@ -22,13 +25,61 @@ class Braille extends StatefulWidget {
 }
 
 class _BrailleState extends State<Braille>{
-
   double posX = 0.0;
   double posY = 0.0;
   double circleWidth = 0.0;
   var circlePosX = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
   var circlePosY = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
   var shouldVibrate = [true, true, false, true, true, false];
+  double currentvol = 0.5;
+  String buttontype = "none";
+  late StreamSubscription _volumeButton;
+
+  void changePage() {
+    if (buttontype == "up") {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => TextBox())
+      );
+    } 
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _volumeButton.cancel();
+  }
+  
+  @override
+  void initState() {
+    Future.delayed(Duration.zero,() async {
+        currentvol = await PerfectVolumeControl.getVolume();
+        //get current volume
+
+        setState(() {
+            //refresh UI
+        });
+    });
+
+    _volumeButton = PerfectVolumeControl.stream.listen((volume) {  
+      //volume button is pressed, 
+      // this listener will be triggeret 3 times at one button press
+        
+       if(volume != currentvol){ //only execute button type check once time
+           if(volume > currentvol){ //if new volume is greater, then it up button
+              buttontype = "up";
+           }else{ //else it is down button
+              buttontype = "down";
+           }
+       }
+
+       setState(() {
+          currentvol = volume;
+       });
+    });
+
+    super.initState();
+  }
 
   void _updateLocation(PointerEvent details) {
     setState(() {
@@ -87,6 +138,7 @@ class _BrailleState extends State<Braille>{
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance?.addPostFrameCallback((_) => changePage());
     return Listener(
       onPointerDown: _updateLocation,
       onPointerMove: _updateLocation,
@@ -135,8 +187,7 @@ class Circle extends StatefulWidget {
   double posX;
   double posY;
   Circle({Key? key, required this.circleKey, required this.shouldVibrate, required this.posX, required this.posY}) : super(key: key);
-  // const Circle(this.circleKey, this.shouldVibrate);
-  // Circle(this.key, this.shouldVibrate); 
+
   @override
   CircleState createState() => CircleState();
 }
@@ -150,12 +201,6 @@ class CircleState extends State<Circle>{
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) => _initInformation());
   }
-
-  // @override
-  // void didUpdateWidget(Braille oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  //   print("Updated");
-  // }
 
   _initInformation() {
     setState(() {
@@ -204,11 +249,7 @@ class CircleState extends State<Circle>{
 
   @override
   Widget build(BuildContext context) {
-    // if (true) {
-      // Vibration.vibrate(amplitude: 50, duration: 200);
-    // }
     return Container(
-      // margin: EdgeInsets.all(100.0),
       key: widget.circleKey,
       width: 150,
       height: 150,
@@ -216,35 +257,6 @@ class CircleState extends State<Circle>{
         color: widget.shouldVibrate ? Colors.black : Colors.white,
         shape: BoxShape.circle
       ),
-      // child: GestureDetector(
-      //   // onPointerMove: (PointerMoveEvent event) {
-      //   //   Vibration.vibrate(amplitude: 50, duration: 200);
-      //   // },
-      //   onPanStart: (DragStartDetails details) {
-      //     // print("START");
-      //     // print(details);
-      //     Vibration.vibrate(amplitude: 50, duration: 200);
-      //   },
-
-      //   onPanUpdate: (DragUpdateDetails details) {
-      //     // print("UPDATE");
-      //     // print(details);
-      //     Vibration.vibrate(amplitude: 50, duration: 200);
-      //   },
-      //   child: InkWell(
-      //     onHover: (hovering) {
-      //       if (hovering) {
-      //         Vibration.vibrate(amplitude: 50, duration: 200);
-      //       }
-      //     },
-      //     onTap: () {
-      //       // _getSizes();
-      //       // _getPosition();
-      //       print(size);
-      //       print(position);
-      //     },
-      //   ),
-      // )
     );
   }
 }
