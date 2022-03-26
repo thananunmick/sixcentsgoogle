@@ -1,4 +1,4 @@
-# sixcents
+# flutter_ink_recognizer
 
 A new Flutter project.
 

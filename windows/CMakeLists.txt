@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(sixcents LANGUAGES CXX)
+project(flutter_ink_recognizer LANGUAGES CXX)
 
-set(BINARY_NAME "sixcents")
+set(BINARY_NAME "flutter_ink_recognizer")
 
 cmake_policy(SET CMP0063 NEW)
 

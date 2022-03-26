@@ -1,6 +1,6 @@
 {
-    "name": "sixcents",
-    "short_name": "sixcents",
+    "name": "flutter_ink_recognizer",
+    "short_name": "flutter_ink_recognizer",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
