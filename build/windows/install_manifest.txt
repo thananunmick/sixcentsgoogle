@@ -1,0 +1,8 @@
+C:/Users/Admin/Desktop/sixcents/sixcentsgoogle/build/windows/runner/Debug/data/icudtl.dat
+C:/Users/Admin/Desktop/sixcents/sixcentsgoogle/build/windows/runner/Debug/flutter_windows.dll
+C:/Users/Admin/Desktop/sixcents/sixcentsgoogle/build/windows/runner/Debug/data/flutter_assets/AssetManifest.json
+C:/Users/Admin/Desktop/sixcents/sixcentsgoogle/build/windows/runner/Debug/data/flutter_assets/FontManifest.json
+C:/Users/Admin/Desktop/sixcents/sixcentsgoogle/build/windows/runner/Debug/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+C:/Users/Admin/Desktop/sixcents/sixcentsgoogle/build/windows/runner/Debug/data/flutter_assets/kernel_blob.bin
+C:/Users/Admin/Desktop/sixcents/sixcentsgoogle/build/windows/runner/Debug/data/flutter_assets/NOTICES.Z
+C:/Users/Admin/Desktop/sixcents/sixcentsgoogle/build/windows/runner/Debug/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf

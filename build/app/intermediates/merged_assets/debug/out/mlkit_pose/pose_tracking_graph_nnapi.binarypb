@@ -1,0 +1,4 @@
+
+üPoseTrackingSubgraphNnapiIMAGE:input_frames"NORM_LANDMARKS:pose_landmarks"POSE_PRESENCE:pose_presence*NNAPI_CACHE_DIR:nnapi_cache_dir*5NNAPI_DETECTOR_MODEL_TOKEN:nnapi_detector_model_token*7NNAPI_LANDMARKS_MODEL_TOKEN:nnapi_landmarks_model_token
+@ImagePropertiesCalculatorIMAGE:input_frames"SIZE:image_size
+¤$MLKitValidatePoseLandmarksCalculatorNORM_LANDMARKS:pose_landmarksPOSE_PRESENCE:pose_presenceIMAGE_SIZE:image_size")VALIDATED_LANDMARKS:output_pose_landmarksRinput_frameszoutput_pose_landmarks‚nnapi_cache_dir‚nnapi_detector_model_token‚nnapi_landmarks_model_token

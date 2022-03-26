@@ -1,0 +1,8 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.b.biradar.google_ml_kit" >
+4
+5    <uses-sdk android:minSdkVersion="21" />
+5-->C:\Users\Admin\flutter\.pub-cache\hosted\pub.dartlang.org\google_ml_kit-0.7.3\android\src\main\AndroidManifest.xml
+6
+7</manifest>
