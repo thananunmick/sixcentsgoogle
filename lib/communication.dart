@@ -16,12 +16,12 @@ class Keys {
 
 class Braille extends StatefulWidget {
   final String text;
-  const Braille({Key? key, required this.text}) : super(key: key);
+  const Braille({Key key, this.text}) : super(key: key);
 
   @override
   State<Braille> createState() => _BrailleState();
 
-  static _BrailleState? of(BuildContext context) => context.findAncestorStateOfType<_BrailleState>();
+  static _BrailleState of(BuildContext context) => context.findAncestorStateOfType<_BrailleState>();
 }
 
 class _BrailleState extends State<Braille>{
@@ -33,7 +33,7 @@ class _BrailleState extends State<Braille>{
   var shouldVibrate = [true, true, false, true, true, false];
   double currentvol = 0.5;
   String buttontype = "none";
-  late StreamSubscription _volumeButton;
+  StreamSubscription _volumeButton;
 
   void changePage() {
     if (buttontype == "up") {
@@ -44,6 +44,14 @@ class _BrailleState extends State<Braille>{
     } 
   }
 
+  Future<void> tripleVibrate() async {
+    Vibration.vibrate(amplitude: 50, duration: 200);
+    await Future.delayed(Duration(milliseconds: 400));
+    Vibration.vibrate(amplitude: 50, duration: 200);
+    await Future.delayed(Duration(milliseconds: 400));
+    Vibration.vibrate(amplitude: 50, duration: 200);
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -52,6 +60,7 @@ class _BrailleState extends State<Braille>{
   
   @override
   void initState() {
+    tripleVibrate();
     Future.delayed(Duration.zero,() async {
         currentvol = await PerfectVolumeControl.getVolume();
         //get current volume
@@ -186,7 +195,7 @@ class Circle extends StatefulWidget {
   final bool shouldVibrate;
   double posX;
   double posY;
-  Circle({Key? key, required this.circleKey, required this.shouldVibrate, required this.posX, required this.posY}) : super(key: key);
+  Circle({Key key, this.circleKey, this.shouldVibrate, this.posX, this.posY}) : super(key: key);
 
   @override
   CircleState createState() => CircleState();

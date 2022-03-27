@@ -2,10 +2,12 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sixcents/screens/draw_screen.dart';
 import 'package:vibration/vibration.dart';
 import 'package:perfect_volume_control/perfect_volume_control.dart';
 import 'communication.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 
 class TextBox extends StatefulWidget {
   @override
@@ -15,19 +17,63 @@ class TextBox extends StatefulWidget {
 class _TextBoxState extends State<TextBox> {
   double currentvol = 0.5;
   String buttontype = "none";
-  late StreamSubscription _volumeButton;
+  StreamSubscription _volumeButton;
   final myController = TextEditingController();
   var imagePicker;
   var _image;
+  bool readImageFromText = false;
+  String scannedText = null;
 
   void changePage() {
-    if (buttontype == "down") {
+    if (buttontype == "up") {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Braille(text: "",))
+        MaterialPageRoute(builder: (context) => DrawScreen())
       );
     } 
   }
+
+  void getImage(ImageSource source) async {
+    try {
+      final ImagePicker _picker = ImagePicker();
+      // pick image from user's gallery
+      final selectedImage = await _picker.pickImage(source: source);
+      if (selectedImage != null) {
+        readImageFromText = true;
+        _image = selectedImage;
+        setState(() {});
+        getTextRecognizer(selectedImage);
+      }
+    } catch (e) {
+      readImageFromText = false;
+      _image = null;
+      scannedText = "Error occured";
+      setState(() {});
+    }
+  }
+
+  void getTextRecognizer(var image) async {
+    final inputImage = InputImage.fromFilePath(image.path);
+    final textDetector = GoogleMlKit.vision.textDetector();
+    RecognisedText recognisedText = await textDetector.processImage(inputImage);
+    await textDetector.close();
+    scannedText = "";
+    for (TextBlock block in recognisedText.blocks) {
+      for (TextLine line in block.lines) {
+        scannedText = scannedText + line.text + "\n";
+      }
+    }
+    scannedText =
+        scannedText.replaceAll(RegExp(r'[^\w\s]+'), '').toLowerCase().trim();
+    readImageFromText = false;
+    setState(() {});
+  }
+    // if (buttontype == "down") {
+    //   Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(builder: (context) => Braille(text: "",))
+    //   );
+    // } 
 
   @override
   void dispose() {
@@ -38,6 +84,7 @@ class _TextBoxState extends State<TextBox> {
 
   @override
   void initState() {
+    Vibration.vibrate(amplitude: 50, duration: 200);
     imagePicker = ImagePicker();
     Future.delayed(Duration.zero,() async {
         currentvol = await PerfectVolumeControl.getVolume();
@@ -68,11 +115,11 @@ class _TextBoxState extends State<TextBox> {
     super.initState();
   }
 
-  Future<void> waitToBraille(int dur, BuildContext ctxt) async {
+  Future<void> waitToBraille(int dur, BuildContext ctxt, String text) async {
     await Future.delayed(Duration(milliseconds: dur));
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => Braille(text: myController.text,))
+      MaterialPageRoute(builder: (context) => Braille(text: text,))
     );
   }
 
@@ -92,6 +139,11 @@ class _TextBoxState extends State<TextBox> {
     Color hexToColor(String code) {
       return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
     }
+
+    if (scannedText != null) {
+      waitToBraille(200, context, scannedText);
+    }
+
     return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: "Welcome to Flutter",
@@ -103,6 +155,7 @@ class _TextBoxState extends State<TextBox> {
                       child: Center(
                         child: Column(
                         children : [
+                          if (readImageFromText) const CircularProgressIndicator(),
                           Padding(padding: EdgeInsets.only(top: 130.0)),
                           // Padding(padding: EdgeInsets.only(top: 50.0)),
                           Text('What\'s on your mind?',
@@ -134,7 +187,7 @@ class _TextBoxState extends State<TextBox> {
                                 currentFocus.unfocus();
                               }
 
-                              waitToBraille(200, context);
+                              waitToBraille(200, context, myController.text);
                               // Navigator.pushReplacement(
                               //   context,
                               //   MaterialPageRoute(builder: (context) => Braille(text: myController.text,))
@@ -181,19 +234,23 @@ class _TextBoxState extends State<TextBox> {
                             // crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               ElevatedButton(
-                                onPressed: () async {
-                                  var image = await imagePicker.pickImage(source: ImageSource.gallery);
+                                onPressed: () {
+                                  getImage(ImageSource.gallery);
+                                  // waitToBraille(200, context, scannedText);
+                                },
+                                // onPressed: () async {
+                                //   var image = await imagePicker.pickImage(source: ImageSource.gallery);
 
-                                  if (image != null) {
-                                    setState(() {
-                                      _image = File(image.path);
-                                    });
-                                  }
-                                  // Navigator.pushReplacement(
-                                  //   context,
-                                  //   MaterialPageRoute(builder: (context) => Braille(text: myController.text,))
-                                  // );
-                                }, //This prop for beautiful expressions
+                                //   if (image != null) {
+                                //     setState(() {
+                                //       _image = File(image.path);
+                                //     });
+                                //   }
+                                //   // Navigator.pushReplacement(
+                                //   //   context,
+                                //   //   MaterialPageRoute(builder: (context) => Braille(text: myController.text,))
+                                //   // );
+                                // }, //This prop for beautiful expressions
                                 child: Text("Gallery"), // This child can be everything. I want to choose a beautiful Text Widget
                                 style: ElevatedButton.styleFrom(
                                   textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -218,20 +275,24 @@ class _TextBoxState extends State<TextBox> {
                                 ),
                               ),
                               ElevatedButton(
-                                onPressed: () async {
-                                  // XFile image; 
-                                  var image = await imagePicker.pickImage(source: ImageSource.camera);
+                                onPressed: () {
+                                  getImage(ImageSource.camera);
+                                  // waitToBraille(200, context, scannedText);
+                                },
+                                // onPressed: () async {
+                                //   // XFile image; 
+                                //   var image = await imagePicker.pickImage(source: ImageSource.camera);
 
-                                  if (image != null) {
-                                    setState(() {
-                                      _image = File(image.path);
-                                    });
-                                  }
-                                  // Navigator.pushReplacement(
-                                  //   context,
-                                  //   MaterialPageRoute(builder: (context) => Braille(text: myController.text,))
-                                  // );
-                                }, //This prop for beautiful expressions
+                                //   if (image != null) {
+                                //     setState(() {
+                                //       _image = File(image.path);
+                                //     });
+                                //   }
+                                //   // Navigator.pushReplacement(
+                                //   //   context,
+                                //   //   MaterialPageRoute(builder: (context) => Braille(text: myController.text,))
+                                //   // );
+                                // }, //This prop for beautiful expressions
                                 child: Text("Camera"), // This child can be everything. I want to choose a beautiful Text Widget
                                 style: ElevatedButton.styleFrom(
                                   textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
