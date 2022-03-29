@@ -14,12 +14,8 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   final myController = TextEditingController();
 
-  // Google APIKEY
-  // AIzaSyCXaF8Sh83_kPP3aKJQqy0Tp-mIMZXA_ZY
   Future<http.Response> fetchAlbum() async {
-    // return await http.get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
-    // return await http.get(Uri.parse('https://api.goog.io/v1/search/q=united+states'), headers: {"apikey": "8580552c13mshd813ce1fa6bfd6cp1d0c42jsneb9288170eaa"});
-    return await http.get(Uri.parse('https://www.google.com/search?q=hi'), headers: {"apikey": "AIzaSyCXaF8Sh83_kPP3aKJQqy0Tp-mIMZXA_ZY"});
+    return await http.get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
   }
 
   @override
