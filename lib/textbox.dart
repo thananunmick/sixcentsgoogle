@@ -60,7 +60,7 @@ class _TextBoxState extends State<TextBox> {
     scannedText = "";
     for (TextBlock block in recognisedText.blocks) {
       for (TextLine line in block.lines) {
-        scannedText = scannedText + line.text + "\n";
+        scannedText = scannedText + line.text + " ";
       }
     }
     scannedText =
@@ -141,6 +141,7 @@ class _TextBoxState extends State<TextBox> {
     }
 
     if (scannedText != null) {
+      print(scannedText);
       waitToBraille(200, context, scannedText);
     }
 
@@ -160,7 +161,7 @@ class _TextBoxState extends State<TextBox> {
                           Padding(padding: EdgeInsets.only(top: 130.0)),
                           // Padding(padding: EdgeInsets.only(top: 50.0)),
                           Text('What\'s on your mind?',
-                          style: TextStyle(color: hexToColor("#bae1ff"), fontSize: 25.0),),
+                          style: TextStyle(color: hexToColor("#7f5539"), fontSize: 25.0),),
                           // style: TextStyle(color: hexToColor("#ffdfba"), fontSize: 25.0),),
                           Padding(padding: EdgeInsets.only(top: 50.0)),
                           TextFormField(
@@ -202,7 +203,7 @@ class _TextBoxState extends State<TextBox> {
                               // We can change style of this beautiful elevated button thanks to style prop
                               // primary: Colors.orange, // we can set primary color
                               // primary: Color.fromARGB(255, 255,223,186), // we can set primary color
-                              primary: Color.fromARGB(255, 255,179,186), //change border color
+                              primary: hexToColor("#ddb892"), //change border color
                               onPrimary: Colors.white, // change color of child prop
                               onSurface: Colors.blue, // surface color
                               shadowColor: Colors
@@ -211,7 +212,7 @@ class _TextBoxState extends State<TextBox> {
                               side: BorderSide(
                                   // color: Colors.orangeAccent.shade400, //change border color
                                   // color: Color.fromARGB(255, 255,223,186), //change border color
-                                  color: Color.fromARGB(255, 255,179,186), //change border color
+                                  color: hexToColor("#ddb892"), //change border color
                                   width: 2, //change border width
                                   style: BorderStyle
                                       .solid), // change border side of this beautiful button
@@ -223,18 +224,18 @@ class _TextBoxState extends State<TextBox> {
                             ),
                           ),
                           Padding(padding: EdgeInsets.only(top: 50.0)),
-                          const Divider(
+                          Divider(
                             // height: 20,
                             thickness: 1,
                             // indent: 20,
                             // endIndent: 0,
-                            color: Colors.black,
+                            color: hexToColor("#9c6644"),
                           ),
                           // Padding(padding: EdgeInsets.only(top: 140.0)),
                           Padding(padding: EdgeInsets.only(top: 50.0)),
                           Text('What\'s on your picture?',
                           // style: TextStyle(color: hexToColor("#F2A03D"), fontSize: 25.0),),
-                          style: TextStyle(color: hexToColor("#bae1ff"), fontSize: 25.0),),
+                          style: TextStyle(color: hexToColor("#7f5539"), fontSize: 25.0),),
                           Padding(padding: EdgeInsets.only(top: 50.0)),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -264,7 +265,7 @@ class _TextBoxState extends State<TextBox> {
                                   minimumSize: Size(125, 100), //change size of this beautiful button
                                   // We can change style of this beautiful elevated button thanks to style prop
                                   // primary: Colors.orange, // we can set primary color
-                                  primary: Color.fromARGB(255, 255,179,186), //change border color
+                                  primary: hexToColor("#ddb892"), //change border color
                                   onPrimary: Colors.white, // change color of child prop
                                   onSurface: Colors.blue, // surface color
                                   shadowColor: Colors
@@ -272,7 +273,7 @@ class _TextBoxState extends State<TextBox> {
                                   elevation: 5, // we can set elevation of this beautiful button
                                   side: BorderSide(
                                       // color: Colors.orangeAccent.shade400, //change border color
-                                      color: Color.fromARGB(255, 255,179,186), //change border color
+                                      color: hexToColor("#ddb892"), //change border color
                                       width: 2, //change border width
                                       style: BorderStyle
                                           .solid), // change border side of this beautiful button
@@ -308,7 +309,7 @@ class _TextBoxState extends State<TextBox> {
                                   minimumSize: Size(125, 100), //change size of this beautiful button
                                   // We can change style of this beautiful elevated button thanks to style prop
                                   // primary: Colors.orange, // we can set primary color
-                                  primary: Color.fromARGB(255, 255,179,186), //change border color
+                                  primary: hexToColor("#ddb892"), //change border color
                                   onPrimary: Colors.white, // change color of child prop
                                   onSurface: Colors.blue, // surface color
                                   shadowColor: Colors
@@ -316,7 +317,7 @@ class _TextBoxState extends State<TextBox> {
                                   elevation: 5, // we can set elevation of this beautiful button
                                   side: BorderSide(
                                       // color: Colors.orangeAccent.shade400, //change border color
-                                      color: Color.fromARGB(255, 255,179,186), //change border color
+                                      color: hexToColor("#ddb892"), //change border color
                                       width: 2, //change border width
                                       style: BorderStyle
                                           .solid), // change border side of this beautiful button

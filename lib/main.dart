@@ -42,8 +42,8 @@ Future<void> waittohome(int dur, BuildContext ctxt) async {
 class BootupPage extends StatelessWidget {
   @override
   Widget build(BuildContext ctxt) {
-    Vibration.vibrate(pattern: [0, 1000, 200, 1000, 200, 1000, 200, 1000]);
-    waittohome(5000, ctxt);
+    Vibration.vibrate(pattern: [0, 1000, 200, 500, 200, 500, 200, 1000]);
+    waittohome(4000, ctxt);
     return Scaffold(
         backgroundColor: Colors.white,
         body: Center(

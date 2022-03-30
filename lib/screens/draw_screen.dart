@@ -163,13 +163,17 @@ class _DrawScreenState extends State<DrawScreen> {
     );
   }
 
+  Color hexToColor(String code) {
+    return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+  }
+
   Widget _drawCanvasWidget() {
     return Container(
       width: width,
       height: height,
       decoration: BoxDecoration(
         border: Border.all(
-          color: Colors.black,
+          color: hexToColor("#9c6644"),
           width: Constants.borderSize,
         ),
       ),
