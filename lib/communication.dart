@@ -156,9 +156,6 @@ class _BrailleState extends State<Braille>{
     return Listener(
       onPointerDown: _updateLocation,
       onPointerMove: _updateLocation,
-      // appBar: AppBar(
-      //   title: const Text('Braille Page'),
-      // ),
       child: GestureDetector(
         onDoubleTap: () {
           setState(() {
@@ -177,20 +174,20 @@ class _BrailleState extends State<Braille>{
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Circle(circleKey: Keys.key1, shouldVibrate: shouldVibrate[count][0], posX: posX, posY: posY),
-                    Circle(circleKey: Keys.key2, shouldVibrate: shouldVibrate[count][1], posX: posX, posY: posY),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Circle(circleKey: Keys.key3, shouldVibrate: shouldVibrate[count][2], posX: posX, posY: posY),
                     Circle(circleKey: Keys.key4, shouldVibrate: shouldVibrate[count][3], posX: posX, posY: posY),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    Circle(circleKey: Keys.key2, shouldVibrate: shouldVibrate[count][1], posX: posX, posY: posY),
                     Circle(circleKey: Keys.key5, shouldVibrate: shouldVibrate[count][4], posX: posX, posY: posY),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Circle(circleKey: Keys.key3, shouldVibrate: shouldVibrate[count][2], posX: posX, posY: posY),
                     Circle(circleKey: Keys.key6, shouldVibrate: shouldVibrate[count][5], posX: posX, posY: posY),
                   ],
                 ),
@@ -230,13 +227,13 @@ class CircleState extends State<Circle>{
     if (widget.circleKey == Keys.key1) {
       color = hexToColor('#935E38');
     } else if (widget.circleKey == Keys.key2) {
-      color = hexToColor('#5C4D3C');
-    } else if (widget.circleKey == Keys.key3) {
       color = hexToColor('#815839');
-    } else if (widget.circleKey == Keys.key4) {
-      color = hexToColor('#4A473E');
-    } else if (widget.circleKey == Keys.key5) {
+    } else if (widget.circleKey == Keys.key3) {
       color = hexToColor('#6F523B');
+    } else if (widget.circleKey == Keys.key4) {
+      color = hexToColor('#5C4D3C');
+    } else if (widget.circleKey == Keys.key5) {
+      color = hexToColor('#4A473E');
     } else if (widget.circleKey == Keys.key6) {
       color = hexToColor('#38413F');
     }
