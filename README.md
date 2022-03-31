@@ -27,7 +27,7 @@ flutter pub get
 
 Step 3:
 
-While in the project root, execute the following command in console to run the application:
+Make sure to connect an android phone to your computer or open an android simulator. While in the project root, execute the following command in console to run the application:
 
 ```
 flutter run
