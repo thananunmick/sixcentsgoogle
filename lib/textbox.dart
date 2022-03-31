@@ -68,12 +68,6 @@ class _TextBoxState extends State<TextBox> {
     readImageFromText = false;
     setState(() {});
   }
-    // if (buttontype == "down") {
-    //   Navigator.pushReplacement(
-    //     context,
-    //     MaterialPageRoute(builder: (context) => Braille(text: "",))
-    //   );
-    // } 
 
   @override
   void dispose() {
@@ -88,21 +82,17 @@ class _TextBoxState extends State<TextBox> {
     imagePicker = ImagePicker();
     Future.delayed(Duration.zero,() async {
         currentvol = await PerfectVolumeControl.getVolume();
-        //get current volume
 
         setState(() {
-            //refresh UI
         });
     });
 
     _volumeButton = PerfectVolumeControl.stream.listen((volume) {  
-      //volume button is pressed, 
-      // this listener will be triggeret 3 times at one button press
         
-       if(volume != currentvol){ //only execute button type check once time
-           if(volume > currentvol){ //if new volume is greater, then it up button
+       if(volume != currentvol){
+           if(volume > currentvol){
               buttontype = "up";
-           }else{ //else it is down button
+           }else{
               buttontype = "down";
            }
        }
@@ -122,15 +112,6 @@ class _TextBoxState extends State<TextBox> {
       MaterialPageRoute(builder: (context) => Braille(text: text,))
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-    // WidgetsBinding.instance?.addPostFrameCallback((_) => changePage());
-
-  //   return Container(
-  //     child: Text("Textbox Page")
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context){
@@ -191,34 +172,25 @@ class _TextBoxState extends State<TextBox> {
                               }
 
                               waitToBraille(200, context, myController.text);
-                              // Navigator.pushReplacement(
-                              //   context,
-                              //   MaterialPageRoute(builder: (context) => Braille(text: myController.text,))
-                              // );
-                            }, //This prop for beautiful expressions
-                            child: Text("Turn it to Braille"), // This child can be everything. I want to choose a beautiful Text Widget
+                            }, 
+                            child: Text("Turn it to Braille"),
                             style: ElevatedButton.styleFrom(
                               textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                              minimumSize: Size(200, 50), //change size of this beautiful button
-                              // We can change style of this beautiful elevated button thanks to style prop
-                              // primary: Colors.orange, // we can set primary color
-                              // primary: Color.fromARGB(255, 255,223,186), // we can set primary color
-                              primary: hexToColor("#ddb892"), //change border color
-                              onPrimary: Colors.white, // change color of child prop
-                              onSurface: Colors.blue, // surface color
+                              minimumSize: Size(200, 50),
+                              primary: hexToColor("#ddb892"),
+                              onPrimary: Colors.white,
+                              onSurface: Colors.blue,
                               shadowColor: Colors
-                                  .grey, //shadow prop is a very nice prop for every button or card widgets.
-                              elevation: 5, // we can set elevation of this beautiful button
+                                  .grey,
+                              elevation: 5,
                               side: BorderSide(
-                                  // color: Colors.orangeAccent.shade400, //change border color
-                                  // color: Color.fromARGB(255, 255,223,186), //change border color
-                                  color: hexToColor("#ddb892"), //change border color
-                                  width: 2, //change border width
+                                  color: hexToColor("#ddb892"),
+                                  width: 2,
                                   style: BorderStyle
-                                      .solid), // change border side of this beautiful button
+                                      .solid),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
-                                    30), //change border radius of this beautiful button thanks to BorderRadius.circular function
+                                    30),
                               ),
                               tapTargetSize: MaterialTapTargetSize.padded,
                             ),
@@ -234,7 +206,6 @@ class _TextBoxState extends State<TextBox> {
                           // Padding(padding: EdgeInsets.only(top: 140.0)),
                           Padding(padding: EdgeInsets.only(top: 50.0)),
                           Text('What\'s on your picture?',
-                          // style: TextStyle(color: hexToColor("#F2A03D"), fontSize: 25.0),),
                           style: TextStyle(color: hexToColor("#7f5539"), fontSize: 25.0),),
                           Padding(padding: EdgeInsets.only(top: 50.0)),
                           Row(
@@ -244,42 +215,25 @@ class _TextBoxState extends State<TextBox> {
                               ElevatedButton(
                                 onPressed: () {
                                   getImage(ImageSource.gallery);
-                                  // waitToBraille(200, context, scannedText);
                                 },
-                                // onPressed: () async {
-                                //   var image = await imagePicker.pickImage(source: ImageSource.gallery);
-
-                                //   if (image != null) {
-                                //     setState(() {
-                                //       _image = File(image.path);
-                                //     });
-                                //   }
-                                //   // Navigator.pushReplacement(
-                                //   //   context,
-                                //   //   MaterialPageRoute(builder: (context) => Braille(text: myController.text,))
-                                //   // );
-                                // }, //This prop for beautiful expressions
-                                child: Text("Gallery"), // This child can be everything. I want to choose a beautiful Text Widget
+                                child: Text("Gallery"),
                                 style: ElevatedButton.styleFrom(
                                   textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                  minimumSize: Size(125, 100), //change size of this beautiful button
-                                  // We can change style of this beautiful elevated button thanks to style prop
-                                  // primary: Colors.orange, // we can set primary color
-                                  primary: hexToColor("#ddb892"), //change border color
-                                  onPrimary: Colors.white, // change color of child prop
-                                  onSurface: Colors.blue, // surface color
+                                  minimumSize: Size(125, 100),
+                                  primary: hexToColor("#ddb892"),
+                                  onPrimary: Colors.white,
+                                  onSurface: Colors.blue,
                                   shadowColor: Colors
-                                      .grey, //shadow prop is a very nice prop for every button or card widgets.
-                                  elevation: 5, // we can set elevation of this beautiful button
+                                      .grey,
+                                  elevation: 5,
                                   side: BorderSide(
-                                      // color: Colors.orangeAccent.shade400, //change border color
-                                      color: hexToColor("#ddb892"), //change border color
-                                      width: 2, //change border width
+                                      color: hexToColor("#ddb892"),
+                                      width: 2,
                                       style: BorderStyle
-                                          .solid), // change border side of this beautiful button
+                                          .solid),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
-                                        30), //change border radius of this beautiful button thanks to BorderRadius.circular function
+                                        30),
                                   ),
                                   tapTargetSize: MaterialTapTargetSize.padded,
                                 ),
@@ -287,43 +241,25 @@ class _TextBoxState extends State<TextBox> {
                               ElevatedButton(
                                 onPressed: () {
                                   getImage(ImageSource.camera);
-                                  // waitToBraille(200, context, scannedText);
                                 },
-                                // onPressed: () async {
-                                //   // XFile image; 
-                                //   var image = await imagePicker.pickImage(source: ImageSource.camera);
-
-                                //   if (image != null) {
-                                //     setState(() {
-                                //       _image = File(image.path);
-                                //     });
-                                //   }
-                                //   // Navigator.pushReplacement(
-                                //   //   context,
-                                //   //   MaterialPageRoute(builder: (context) => Braille(text: myController.text,))
-                                //   // );
-                                // }, //This prop for beautiful expressions
-                                child: Text("Camera"), // This child can be everything. I want to choose a beautiful Text Widget
+                                child: Text("Camera"),
                                 style: ElevatedButton.styleFrom(
                                   textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                  minimumSize: Size(125, 100), //change size of this beautiful button
-                                  // We can change style of this beautiful elevated button thanks to style prop
-                                  // primary: Colors.orange, // we can set primary color
-                                  primary: hexToColor("#ddb892"), //change border color
-                                  onPrimary: Colors.white, // change color of child prop
-                                  onSurface: Colors.blue, // surface color
+                                  minimumSize: Size(125, 100),
+                                  primary: hexToColor("#ddb892"),
+                                  onPrimary: Colors.white,
+                                  onSurface: Colors.blue,
                                   shadowColor: Colors
-                                      .grey, //shadow prop is a very nice prop for every button or card widgets.
-                                  elevation: 5, // we can set elevation of this beautiful button
+                                      .grey,
+                                  elevation: 5,
                                   side: BorderSide(
-                                      // color: Colors.orangeAccent.shade400, //change border color
-                                      color: hexToColor("#ddb892"), //change border color
-                                      width: 2, //change border width
+                                      color: hexToColor("#ddb892"),
+                                      width: 2,
                                       style: BorderStyle
-                                          .solid), // change border side of this beautiful button
+                                          .solid),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
-                                        30), //change border radius of this beautiful button thanks to BorderRadius.circular function
+                                        30),
                                   ),
                                   tapTargetSize: MaterialTapTargetSize.padded,
                                 ),
