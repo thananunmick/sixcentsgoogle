@@ -5,6 +5,7 @@ SixCents is an application developed to help deaf-blind people communicate with 
 ## Getting Started
 
 For android, ensure that the phone you are using has a minimum sdk version of 21.
+IOS mobile phones are still not yet compatible. We will try to fix the issues in our next phase.
 
 ## How to Use
 
